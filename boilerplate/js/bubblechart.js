@@ -1,3 +1,4 @@
+//Same Script as Main for Activity 8
 // Execute script when window is loaded
 window.onload = function(){
     //SVG dimension variables
