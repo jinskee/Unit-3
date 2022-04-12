@@ -25,16 +25,26 @@ Example 3.13*/
     border: medium solid #999;
 }
 
+.countries {
+    fill: rgb(43, 42, 42);
+    stroke: #CCC;
+    stroke-width: 1px;
+}
 /*Example 2.4*/
 
-/*.regions {
-    fill: #fff;
-    stroke: #CCC;
-    stroke-width: 2px;
-}*/
+.regions {
+    stroke: #000;
+    stroke-width: 0.5px;
+    stroke-linecap: round;
+}
+
 
 .gratLines {
     fill: none;
     stroke: #999;
     stroke-width: 1px;
+}
+
+.gratBackground {
+    fill: #D5E3FF;
 }
