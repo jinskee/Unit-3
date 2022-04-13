@@ -240,6 +240,7 @@
             })
             .attr("y", function(d){
                 return chartHeight - yScale(parseFloat(d[expressed])) + 15;
+                
             })
             .text(function(d){
                 return d[expressed];
@@ -253,71 +254,3 @@
             .text("Number of " + attrArray[0] + " in each region");
     };
 })();
-/*            var attrArray = ["BLM_acres", "NPS_acres", "NWR_acres", "State_acres", "USFS_acres"];
-            
-            //loop through the csv to assign each set of csv attribute values to geojson region
-            for (var i = 0; i < csvData.length; i++) {
-                var csvRegion = csvData[i]; //the current region
-                var csvKey = csvRegion.STATE_FIPS; //the CSV primary key
-            
-            //loop through csv to assign each set of csv attribute values to geojson region
-                for (var a = 0; a < states.length; a++) {
-                    var geojsonProps = states[a].properties; //the current region geojson properties 
-                    var geojsonKey = geojsonProps.STATE_FIPS; //the topojson primary key
-
-                //where primary keys match, transfer csv data to geojson properties object
-                    if (geojsonKey == csvKey) {
-                    //assign all attributes and values 
-                        attrArray.forEach(function (attr) {
-                            var val = parseFloat(csvRegion[attr]); //get csv attribute value
-                            geojsonProps[attr] = val; //assign attribute and value to geojson properties 
-                        });
-                    };
-                };
-            };    
-            console.log(states)
-            //translate United States topoJson
-            //var states = topojson.feature(unitedStates, unitedStates.objects.States);
-            var canadaCountries = topojson.feature(canada, canada.objects.canada),
-                states = topojson.feature(unitedStates, unitedStates.objects.States).features;
-            
-            var graticule = d3.geoGraticule().step([5, 5]); //place graticule lines every 5 degrees of longitude and latitude
-
-            //create graticule background
-            var gratBackground = map
-                .append("path")
-                .datum(graticule.outline()) //bind graticule background
-                .attr("class", "gratBackground") //assign class for styling
-                .attr("d", path); //project graticule
-
-            //create graticule lines
-            var gratLines = map
-                .selectAll(".gratLines") //select graticule elements that will be created
-                .data(graticule.lines()) //bind graticule lines to each element to be created
-                .enter() //create an element for each datum
-                .append("path") //append each element to the svg as a path element
-                .attr("class", "gratLines") //assign class for styling
-                .attr("d", path); //project graticule lines
-
-
-            //add canada countries countries to map
-            var countries = map
-                .append("path")
-                .datum(canadaCountries)
-                .attr("class", "countries")
-                .attr("d", path);
-
-            //add US regions to the map 
-            var regions = map.selectAll(".regions")
-                .data(states)
-                .enter()
-                .append("path")
-                .attr("class", function (d) {
-                    return "regions " + d.properties.adm1_code;
-                })
-                .attr("d", path);
-
-            //examine the results 
-            //console.log(states)
-        };
-    };*/
