@@ -22,39 +22,16 @@
 Example 3.13*/
 
 .map {
+    background-color: rgba(0, 0, 0, 0.396);;
     border: medium solid #999;
     margin: 10px 0 0 20px;
 }
-.chart {
-    background-color: rgba(128,128,128,.2);
-    border: medium solid #999;
-    float: right;
-    margin: 10px 20px 0 0;
-}
 
-.chartTitle {
-    font-family: sans-serif;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-.numbers {
-    fill: white;
-    font-family: sans-serif;
-}
 .countries {
     fill: rgb(43, 42, 42);
     stroke: #CCC;
     stroke-width: 1px;
 }
-/*Example 2.4*/
-
-.regions {
-    stroke: #000;
-    stroke-width: 0.5px;
-    stroke-linecap: round;
-}
-
 
 .gratLines {
     fill: none;
@@ -64,4 +41,138 @@ Example 3.13*/
 
 .gratBackground {
     fill: #D5E3FF;
+}
+
+
+.regions {
+    stroke: #000;
+    stroke-width: 0.5px;
+    stroke-linecap: round;
+}
+
+.chart {
+    background-color: #ffffff;
+    /*border: medium solid #999;*/
+    float: right;
+    margin: 10px 20px 10px 0;
+}
+
+.chartTitle {
+    font-family: sans-serif;
+    font-size: 1.3em;
+    font-weight: bold;
+    fill: #000000
+}
+.chartBackground {
+    fill: rgba(0, 0, 0, 0.396);
+}
+
+.chartFrame {
+    fill: none;
+    stroke: #999;
+    stroke-width: 3px;
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #333333;
+    stroke-width: 1px;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 0.8em;
+    fill: rgb(62, 53, 53);
+}
+
+.numbers {
+    fill: white;
+    font-family: sans-serif;
+    /*writing-mode: vertical-rl;*/
+}
+
+/*Example 2.4*/
+
+
+
+
+
+
+.dropdown {
+    background-color: rgba(255, 128, 0, 0.523);
+    position: absolute;
+    top: 130px;
+    left: 40px;
+    z-index: 10;
+    font-family: Helvetica;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 2px;
+    border: 2px solid #999;
+    box-shadow: 2px 2px 4px #999;
+}
+
+option {
+    font-weight: normal;
+}
+
+.infolabel {
+    position: absolute;
+    height: 100px;
+    min-width: 100px;
+    color: #fff;
+    background-color: #000;
+    border: solid thin #fff;
+    padding: 5px 10px;
+}
+
+.infolabel h1 {
+    margin: 0 20px 0 0;
+    padding: 0;
+    display: inline-block;
+    line-height: 1em;
+}
+
+.legendBox {
+    position: absolute;
+    left: 25px;
+    top: 680px;
+    fill: #292f32;
+    font-size: 0.9em;
+}
+
+.legendTitle {
+    font-family: Helvetica;
+    font-weight: bold !important;
+}
+
+#supplemental{
+
+    color: rgb(9, 9, 9);
+}
+.col-md-2{
+    font-family: Helvetica;
+    background-color: rgba(255, 128, 0, 0.364);
+}
+
+.col-md-3{
+    font-family: Helvetica;
+    background-color: rgba(255, 128, 0, 0.364);
+}
+
+.col-md-4{
+    font-family: Helvetica;
+    background-color: rgba(255, 128, 0, 0.364);
+}
+
+.container-fluid{
+    font-family: Helvetica;
+    background-color: rgba(255, 128, 0, 0.364);
+}
+.col-md-8{
+    font-family: Helvetica;
+    background-color:rgba(255, 128, 0, 0.364);
 }
