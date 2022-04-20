@@ -29,6 +29,7 @@
     stroke-linecap: round;
 }
 
+/*Chart Design*/
 .chart {
     background-color: rgba(137, 126, 116, 0.364);
     border: medium solid rgb(249, 96, 7);
@@ -36,7 +37,7 @@
     margin: 10px 20px 10px 0;
     box-shadow: 2px 2px 4px #999
 }
-
+/*Title Design*/
 .chartTitle {
     font-family: Helvetica;
     font-size: 1.3em;
@@ -63,7 +64,7 @@
 }
 
 .axis text {
-    font-family: sans-serif;
+    font-family: Helvetica;
     font-size: 0.8em;
     fill: rgb(62, 53, 53);
 }
