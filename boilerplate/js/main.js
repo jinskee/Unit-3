@@ -74,8 +74,8 @@
             var canadaCountries = topojson.feature(canada, canada.objects.canada),
                 states = topojson.feature(unitedStates, unitedStates.objects.States).features;    
  
-
-            //add Canada countries to map****Do I want to keep?
+            //Excluded canada when I changed the projection to AlbersUSA
+            //add Canada countries to map
             /*var countries = map
                 .append("path")
                 .datum(canadaCountries)
