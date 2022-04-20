@@ -1,33 +1,12 @@
-/*Add CSS styles here*/
-/*Example 3.10 From Activity 8
-.axis path,
-.axis line {
-    fill: none;
-    stroke: black;
-    stroke-width: 1px;
-    shape-rendering: crispEdges;
-}
-
-.axis text {
-    font-family: sans-serif;
-    font-size: 0.9em;
-}
-
-.title {
-    font-family: sans-serif;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-Example 3.13*/
 
 .map {
-    background-color: rgba(0, 0, 0, 0.396);;
-    border: medium solid #999;
+    background-color: rgba(137, 126, 116, 0.364);
+    border: medium solid rgb(249, 96, 7);
     margin: 10px 0 0 20px;
+    box-shadow: 2px 2px 4px #999
 }
 
-.countries {
+/*.countries {
     fill: rgb(43, 42, 42);
     stroke: #CCC;
     stroke-width: 1px;
@@ -41,9 +20,9 @@ Example 3.13*/
 
 .gratBackground {
     fill: #D5E3FF;
-}
+}*/
 
-
+/*states design*/
 .regions {
     stroke: #000;
     stroke-width: 0.5px;
@@ -51,26 +30,27 @@ Example 3.13*/
 }
 
 .chart {
-    background-color: #ffffff;
-    /*border: medium solid #999;*/
+    background-color: rgba(137, 126, 116, 0.364);
+    border: medium solid rgb(249, 96, 7);
     float: right;
     margin: 10px 20px 10px 0;
+    box-shadow: 2px 2px 4px #999
 }
 
 .chartTitle {
-    font-family: sans-serif;
+    font-family: Helvetica;
     font-size: 1.3em;
     font-weight: bold;
-    fill: #000000
+    fill: #333232
 }
 .chartBackground {
-    fill: rgba(0, 0, 0, 0.396);
+    fill: none; 
 }
 
 .chartFrame {
     fill: none;
     stroke: #999;
-    stroke-width: 3px;
+    stroke-width: 0px;
     shape-rendering: crispEdges;
 }
 
@@ -88,30 +68,24 @@ Example 3.13*/
     fill: rgb(62, 53, 53);
 }
 
-.numbers {
+/*.numbers {
     fill: white;
     font-family: sans-serif;
-    /*writing-mode: vertical-rl;*/
-}
-
-/*Example 2.4*/
-
-
-
-
+    writing-mode: vertical-rl;
+}*/
 
 
 .dropdown {
     background-color: rgba(255, 128, 0, 0.523);
     position: absolute;
-    top: 130px;
+    top: 110px;
     left: 40px;
     z-index: 10;
     font-family: Helvetica;
     font-size: 1em;
     font-weight: bold;
     padding: 2px;
-    border: 2px solid #999;
+    border: 2px solid rgb(0, 0, 0);
     box-shadow: 2px 2px 4px #999;
 }
 
@@ -120,12 +94,13 @@ option {
 }
 
 .infolabel {
+    font-family: Helvetica;
     position: absolute;
     height: 100px;
     min-width: 100px;
-    color: #fff;
-    background-color: #000;
-    border: solid thin #fff;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 158, 54, 0.968);
+    border: solid thin rgb(160, 72, 0);
     padding: 5px 10px;
 }
 
@@ -138,41 +113,32 @@ option {
 
 .legendBox {
     position: absolute;
-    left: 25px;
-    top: 680px;
-    fill: #292f32;
+    right: 75px;
+    top: 25px;
+    
     font-size: 0.9em;
 }
 
 .legendTitle {
     font-family: Helvetica;
-    font-weight: bold !important;
+    font-weight: bold;
 }
-
+#title{
+    font-family: Helvetica;
+    color:#000;
+    padding: 20px 25px 15px 45px;
+}
 #supplemental{
-
-    color: rgb(9, 9, 9);
-}
-.col-md-2{
     font-family: Helvetica;
-    background-color: rgba(255, 128, 0, 0.364);
-}
-
-.col-md-3{
-    font-family: Helvetica;
-    background-color: rgba(255, 128, 0, 0.364);
-}
-
-.col-md-4{
-    font-family: Helvetica;
-    background-color: rgba(255, 128, 0, 0.364);
+    color: #000;
+    padding: 15px 20px 10px 30px;
 }
 
 .container-fluid{
-    font-family: Helvetica;
-    background-color: rgba(255, 128, 0, 0.364);
+    background-color: rgb(252, 159, 83);
+    box-shadow: 2px 2px 4px #999
 }
-.col-md-8{
+.col-md-6{
     font-family: Helvetica;
-    background-color:rgba(255, 128, 0, 0.364);
+    /*background-color:rgba(255, 128, 0, 0.364);*/
 }

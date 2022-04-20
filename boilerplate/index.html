@@ -19,18 +19,11 @@
 
     <body>
         <div class = "row">
-            <div class = "col-md-8">
+            <div class = "container-fluid">
                 <div id="title">
-                <h3>The Amount of Publicland Owned by Government Agency in the Western and Midwestern United States (thousand acres)</h3>
+                    <h3><b>Amount of Publicland Owned by Government Agency in the Western United States</b></h3>
                 </div>
             </div>
-
-        <!--metadata-->
-        <div class="col-md-4">
-            <div id="metadata">
-                <p>-Data from National Resource Council of Maine</p>
-            </div>
-        </div>
     </div>
         <div class ="row">
             <div class="col-md-6">
@@ -40,16 +33,22 @@
                 <div id="chart"></div>
             </div>
         </div>
-        <!--div class="row">
-            <div class="col-md-2">
-
-            </div>
-        </div-->
         <div class="row">
-            <div class="container-fluid">
+            <div class="col-md-6">
                 <div id="supplemental">
-                    <p>This interactive includes a choropleth map representing the amount of acres that are public, owned by different agencies in each state.</p>
+                    <p>This interactive looks at publicland per state, represented by a choropleth map and coordinated visual barchart.</p>
+                    <p>The publicland represented is either owned by one of four federal agencies or the state.</p>
+                    <p>As you can see, the amount of acres owned by a respective agency in each state varies from a small amount to very large amount, making the barchart exclude smaller values.
+                        Hover over a state with the mouse cursor to retrieve the acres owned by the government agency you select.
+                    </p>
+                    <div id="metadata">
+                        <p><em>Data from National Resource Council of Maine</em><a href="https://www.nrcm.org/documents/publiclandownership.pdf"> Publicland breakdown</a></p>
+                        <p>Visualization created by Joey Inskeep</p>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-6">
+                <div id="legend"></div>
             </div>
         </div>
 
@@ -57,9 +56,7 @@
 
         <!--you can also use this space for internal scripts;
         place these within <script> tags-->
-        <div class=""col-md-3>
-            <div id="legend"></div>
-        </div>
+
         <!--put your external script links here-->
         <!--script type="text/javascript" src="lib/simple-statistics.min.js"></script-->
         

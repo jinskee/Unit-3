@@ -2,20 +2,21 @@
 (function (){
     
     //Pseudo-global variables
-    var attrArray = ["National Wildlife Refuge acres", "Bureau of Land Mgmt acres", "Forest Service acres", "National Park Service acres", "State acres"]; //List of attributes 
+    var attrArray = ["Nat'l Wildlife Refuge acres", "Bureau of Land Mgmt acres", "Forest Service acres", "National Park Service acres", "State owned acres"]; //List of attributes 
     var expressed = attrArray[0]; //initial attribute
     var numericClasses; 
     
     //chart frame dimensions
-    var chartWidth = window.innerWidth * 0.425,
+    var chartWidth = window.innerWidth * 0.425,//0.425,
         chartHeight = 550,//473,
-        leftPadding = 30,
+        leftPadding = 50, //left padding and bar csvData - 1 check it out
         rightPadding = 2,
-        topBottomPadding = 4,
+        topBottomPadding = 1,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
         chartInnerHeight = chartHeight - topBottomPadding * 2,
         translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
-    //TRY IT OUT 
+    
+    //color classes as global variable
     var colorClasses = [
         "#fef0d9",
         "#fdcc8a",
@@ -23,11 +24,11 @@
         "#e34a33",
         "#b30000"
         ];
-    
+
     //create a scale to size bars proportionally to frame for axis
-    var yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, 5000]);
+    var yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, 75000]);
     
-        // Begin script when window is loaded
+    // Begin script when window is loaded
     window.onload = setMap();
 
     //Set up choropleth map 
@@ -39,7 +40,7 @@
 
         //create a new svg container for the map
         var map = d3
-            .select("body")
+            .select("#map") //was body
             .append("svg")
             .attr("class", "map")
             .attr("width", width)
@@ -48,9 +49,6 @@
         //create Albers equal area (choropleth needs equal area) centered on United States
         var projection = d3
             .geoAlbersUsa()
-            //.center([0, 51])
-            //.rotate([99, 0, 0])
-            //.parallels([18, 47])
             .scale(850)
             .translate([width / 2, height /2]);
 
@@ -58,7 +56,6 @@
         var path = d3.geoPath().projection(projection); 
 
         //use Promise.all to parallelize asynchronous data loading
-
         var promises =[
             d3.csv("data/publiclandOwnership.csv"),
             d3.json("data/CanadaCountries.topojson"),
@@ -71,17 +68,12 @@
             var csvData = data[0],
                 canada = data[1],
                 unitedStates = data[2];
-            //console.log(csvData)
-            //console.log(unitedStates)
-
-            //setGraticule(map,path);
 
 
             //Translate topoJson
             var canadaCountries = topojson.feature(canada, canada.objects.canada),
                 states = topojson.feature(unitedStates, unitedStates.objects.States).features;    
-            //console.log(states)
-            //Variables for data join
+ 
 
             //add Canada countries to map****Do I want to keep?
             /*var countries = map
@@ -94,22 +86,24 @@
 
             var colorScale = makeColorScale(csvData);
 
+            //call function
             setEnumerationUnits(states,map,path,colorScale);
 
-                //add coordinated visualization to the map
-                setChart(csvData, colorScale);
-                
-                //add dropdown box
-                createDropdown(csvData);
+            //add coordinated visualization to the map
+            setChart(csvData, colorScale);
+            
+            //add dropdown box
+            createDropdown(csvData);
 
-                createLegend(csvData, expressed); //TRY IT OUT 
+            //add legend
+            createLegend(csvData, expressed, colorScale); 
 
-                //setLabel(props);
+             
 
         };
 
     };
-
+    //leave out graticules 
     /*function setGraticule(map,path){
         var graticule = d3.geoGraticule()
             .step([5, 5]); //place graticule lines every 5 degrees of longitude and latitude
@@ -130,6 +124,7 @@
             .attr("d", path); //project graticule lines
     }*/
 
+    //function to join topojson(geojson) and csv 
     function joinData(states,csvData){
         //loop through the csv to assign each set of csv attribute values to geojson region
         for (var i = 0; i < csvData.length; i++) {
@@ -151,15 +146,14 @@
                 };
             };
         };
-        console.log(states)
+        
         return states;
 
     }
     //function to create color scale generator 
     function makeColorScale(data){
-        //code to take out if no bueno
-
-
+        
+        //set color classes as psuedo-global variable
         /*var colorClasses = [
             "#fef0d9",
             "#fdcc8a",
@@ -167,9 +161,10 @@
             "#e34a33",
             "#b30000"
             ];*/
+        
         //create color scale generator 
         var colorScale = d3
-            .scaleQuantile() //.scaleQuantile() - for quantile breaks 
+            .scaleQuantile() //for quantile breaks 
             .range(colorClasses);
 
         //build array of all values of the expressed attribute
@@ -178,7 +173,8 @@
             var val = parseFloat(data[i][expressed]);
             domainArray.push(val);
         };
-
+        
+        //Tried using natural breaks, opted for quantile 
         /*//cluster data using ckmean clustering algorithm to create natural breaks
         var clusters = ss.ckmeans(domainArray, 5);
         //reset domain array to cluster minimums 
@@ -189,7 +185,7 @@
         numericClasses = clusters.map(function(d){
             return d3.max(d);
         });*/
-        colorScale.domain(domainArray);
+        colorScale.domain(domainArray); //was domain array
         
         numericClasses = colorScale.quantiles()
 
@@ -237,13 +233,10 @@
 
     //function to create coordinated bar chart
     function setChart(csvData, colorScale){
-        //chart frame dimensions
-        //var chartWidth = window.innerWidth * 0.425,
-        //    chartHeight = 460;
 
         //create a second svg element to hold the bar chart
         var chart = d3
-            .select("body")
+            .select("#chart") //was body
             .append("svg")
             .attr("width", chartWidth)
             .attr("height", chartHeight)
@@ -257,14 +250,12 @@
             .attr("height", chartInnerHeight)
             .attr("transform", translate);
 
-        /*var yScale = d3.scaleLinear() //check out scale linear and maybe change to get bars to fit in chart
-            .range([0, chartHeight]) //was chartHeight
-            .domain([0, 3000]);*/ 
+
         var yAxis = d3.axisLeft(yScale);
 
         var axis1 = chart.append("g")
             .attr("class", "axis1")
-            .attr("transform", "translate(46,0)")
+            .attr("transform", "translate(50,0)")
             .call(yAxis)
         
         
@@ -280,7 +271,7 @@
             .attr("class", function(d){
                 return "bar " + d.STATE_NAME;
             })
-            .attr("width", chartInnerWidth / csvData.length-1)
+            .attr("width", chartInnerWidth / csvData.length-2)
             .on("mouseover", function (event, d){
                 highlight(d);
             })
@@ -289,46 +280,12 @@
             })
             .on("mousemove", moveLabel);
             
-            /*.attr("x", function(d, i){
-                return i * (chartWidth / csvData.length);
-            })
-            .attr("height", function(d){
-                return yScale(parseFloat(d[expressed]));
-            })
-            .attr("y", function(d){
-                return chartHeight - yScale(parseFloat(d[expressed]));
-            }).style("fill", function(d){
-                return colorScale(d[expressed]);
-            });*/
+            
 
-        //annotate bars with attribute value text
-        /*var numbers = chart.selectAll(".numbers")
-            .data(csvData)
-            .enter()
-            .append("text")
-            .sort(function(a, b){
-                return a[expressed]-b[expressed]
-            })
-            .attr("class", function(d){
-                return "numbers " + d.STATE_FIPS;
-            })
-            .attr("text-anchor", "middle")
-            .attr("x", function(d, i){
-                var fraction = chartWidth / csvData.length;
-                return i * fraction + (fraction - 1) / 2;
-            })
-            .attr("y", function(d){
-                return chartHeight - yScale(parseFloat(d[expressed])) + 10; //was +15
-                
-            })
-            .text(function(d){
-                return d[expressed];
-            });*/
-
-            //below Example 2.8...create a text element for the chart title
+        //create a text element for the chart title
         var chartTitle = chart
             .append("text")
-            .attr("x", 40)
+            .attr("x", 120)
             .attr("y", 40)
             .attr("class", "chartTitle");
             //.text("Number of " + expressed[0] + " in each region");
@@ -385,27 +342,6 @@
 
     //dropdown change listener handler
     function changeAttribute(attribute,csvData){
-
-        var domainArray = [];
-        csvData.forEach(data => {
-            if (data[expressed]){
-                domainArray.push(data[expressed])    
-            
-        }});
-
-        var max = Math.max(...domainArray);
-        var min = Math.min(...domainArray);
-
-        yScale = d3.scaleLinear()
-            .range([chartHeight, 0])
-            .domain([min, max]);
-
-        var yAxis = d3.axisLeft(yScale);
-
-        var axis2 = d3.select(".axis1")
-            .attr("transform", "translate(46,0)")
-            .call(yAxis)
-
         //change the expressed attribute
         expressed = attribute;
 
@@ -424,6 +360,27 @@
                     return "#ccc";
                 }
         });
+        
+        var array = [];
+        csvData.forEach(data => {
+            if (data[expressed]){
+                array.push(data[expressed])    
+            
+        }});
+
+        var max = Math.max(...array);
+        var min = Math.min(...array);
+
+        yScale = d3.scaleLinear()
+            .range([chartHeight, 0])
+            .domain([min, max]);
+
+        var yAxis = d3.axisLeft(yScale);
+
+        var axis2 = d3.select(".axis1")
+            .attr("transform", "translate(50,0)")
+            .call(yAxis)
+        
 
         //re-sort, resize, and recolor bars
         var bars = d3   
@@ -440,28 +397,11 @@
 
         updateChart(bars, csvData.length, colorScale);
 
-        createLegend(csvData, expressed);
+        createLegend(csvData, expressed, colorScale);
 
-        //******createLegend(csvData, expressed);
-
-            /*.attr("x", function(d, i){
-                return i * (chartInnerWidth / csvData.length) + leftPadding;
-            })
-            //resize bars
-            .attr("height", function(d, i){
-                return yScale(parseFloat(d[expressed])) + topBottomPadding;
-            })
-            //recolor bars
-            .style("fill", function(d){
-                var value = d[expressed];
-                if (value) {
-                    return colorScale(value);
-                } else {
-                    return "#ccc";
-                }
-            });*/
     }
 
+    //function to update bars with data 
     function updateChart(bars, n, colorScale){
         //position bars 
         bars.attr("x", function (d, i){
@@ -496,7 +436,7 @@
         var selected = d3
             .selectAll("." + props.STATE_NAME)
             .style("stroke", "blue")
-            .style("stroke-width", "2");
+            .style("stroke-width", "3");
         setLabel(props);
     }
 
@@ -527,7 +467,8 @@
     }
 
     //add legend that changes with attribute/classification scheme
-    function createLegend(csvData, expressed) {
+    function createLegend(csvData, expressed, colorScale){ //domainArray, min, max) {
+        console.log(legend)
         var scale = d3.scaleQuantile()
             .domain(numericClasses)
             .range(colorClasses);
@@ -544,7 +485,7 @@
             .shapeWidth(40)
             .orient("vertical")
             .ascending(true)
-            .scale(scale)
+            .scale(colorScale)
             .title(expressed + " (thousands)")
             .labels(d3.legendHelpers.thresholdLabels)
 
@@ -597,9 +538,5 @@
 
 
     }
-
-
-    
-
 
 })();
