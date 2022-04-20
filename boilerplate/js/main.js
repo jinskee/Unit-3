@@ -2,14 +2,14 @@
 (function (){
     
     //Pseudo-global variables
-    var attrArray = ["Nat'l Wildlife Refuge acres", "Bureau of Land Mgmt acres", "Forest Service acres", "National Park Service acres", "State owned acres"]; //List of attributes 
+    var attrArray = ["Nat'l Wildlife Refuge", "Bureau of Land Mgmt", "Forest Service", "National Park Service", "State owned"]; //List of attributes 
     var expressed = attrArray[0]; //initial attribute
     var numericClasses; 
     
     //chart frame dimensions
     var chartWidth = window.innerWidth * 0.425,//0.425,
-        chartHeight = 550,//473,
-        leftPadding = 50, //left padding and bar csvData - 1 check it out
+        chartHeight = 550,
+        leftPadding = 50, 
         rightPadding = 2,
         topBottomPadding = 1,
         chartInnerWidth = chartWidth - leftPadding - rightPadding,
@@ -26,7 +26,7 @@
         ];
 
     //create a scale to size bars proportionally to frame for axis
-    var yScale = d3.scaleLinear().range([chartHeight, 0]).domain([0, 75000]);
+    var yScale = d3.scaleLinear().range([chartHeight, 0]).domain([-2000, 75000]);
     
     // Begin script when window is loaded
     window.onload = setMap();
@@ -35,7 +35,7 @@
     function setMap(){
         //map frame dimensions
         var width = window.innerWidth * 0.5,
-            height = 550;//468 Set up choropleth map
+            height = 550;//Set up choropleth map
     
 
         //create a new svg container for the map
@@ -259,7 +259,7 @@
             .call(yAxis)
         
         
-        //set bars for each province
+        //set bars for each state
         var bars = chart
             .selectAll(".bar")
             .data(csvData)
@@ -373,7 +373,7 @@
 
         yScale = d3.scaleLinear()
             .range([chartHeight, 0])
-            .domain([min, max]);
+            .domain([-2000, max]);
 
         var yAxis = d3.axisLeft(yScale);
 
@@ -416,7 +416,7 @@
             })
             //color/recolor bars
             .style("fill", function (d){
-                var value = d[expressed];
+                var value = parseFloat(d[expressed]);
                 if (value) {
                     return colorScale(value);
                 } else {
@@ -427,7 +427,7 @@
         //at the bottom of updateChart()...add text to chart title
         var chartTitle = d3
             .select(".chartTitle")
-            .text(expressed + " per State");
+            .text(expressed + " acres (000's) per State");
     }
 
     //function to highlight enumeration units and bars
@@ -486,7 +486,7 @@
             .orient("vertical")
             .ascending(true)
             .scale(colorScale)
-            .title(expressed + " (thousands)")
+            .title(expressed + " acres (000's)")
             .labels(d3.legendHelpers.thresholdLabels)
 
         legend.select(".legend")
@@ -497,7 +497,7 @@
     function setLabel(props){
         console.log("here!");
         //label content
-        var labelAttribute = "<h1>" + props[expressed] + "</h1><b>" + expressed + " (1000 acres)" + "</b>";
+        var labelAttribute = "<h1>" + props[expressed] + "</h1><b>" + expressed + " (000's acres)" + "</b>";
 
         //create info label div
         var infolabel = d3  
